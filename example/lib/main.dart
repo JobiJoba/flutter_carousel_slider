@@ -42,6 +42,7 @@ class CarouselDemo extends StatelessWidget {
             '/position': (ctx) => KeepPageviewPositionDemo(),
             '/multiple': (ctx) => MultipleItemDemo(),
             '/zoom': (ctx) => EnlargeStrategyZoomDemo(),
+            '/autoplay': (ctx) => AutoplayDemo(),
           },
         );
       },
@@ -98,6 +99,7 @@ class CarouselDemoHome extends StatelessWidget {
           DemoItem('Keep pageview position demo', '/position'),
           DemoItem('Multiple item in one screen demo', '/multiple'),
           DemoItem('Enlarge strategy: zoom demo', '/zoom'),
+          DemoItem('Autoplay', '/autoplay'),
         ],
       ),
     );
@@ -113,6 +115,26 @@ class BasicDemo extends StatelessWidget {
       body: Container(
           child: CarouselSlider(
         options: CarouselOptions(),
+        items: list
+            .map((item) => Container(
+                  child: Center(child: Text(item.toString())),
+                  color: Colors.green,
+                ))
+            .toList(),
+      )),
+    );
+  }
+}
+
+class AutoplayDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<int> list = [1, 2, 3, 4, 5];
+    return Scaffold(
+      appBar: AppBar(title: Text('Basic demo')),
+      body: Container(
+          child: CarouselSlider(
+        options: CarouselOptions(autoPlay: true),
         items: list
             .map((item) => Container(
                   child: Center(child: Text(item.toString())),

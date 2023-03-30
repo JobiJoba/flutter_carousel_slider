@@ -7,7 +7,7 @@ class CarouselState {
 
   /// [pageController] is created using the properties passed to the constructor
   /// and can be used to control the [PageView] it is passed to.
-  PageController? pageController;
+  late PageController pageController;
 
   /// The actual index of the [PageView].
   ///
