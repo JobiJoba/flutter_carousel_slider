@@ -7,7 +7,7 @@ class CarouselState {
 
   /// [pageController] is created using the properties passed to the constructor
   /// and can be used to control the [PageView] it is passed to.
-  late PageController pageController;
+  PageController pageController;
 
   /// The actual index of the [PageView].
   ///
@@ -36,6 +36,6 @@ class CarouselState {
   /// The callback to set the Reason Carousel changed
   Function(CarouselPageChangedReason) changeMode;
 
-  CarouselState(
-      this.options, this.onResetTimer, this.onResumeTimer, this.changeMode);
+  CarouselState(this.options, this.onResetTimer, this.onResumeTimer,
+      this.changeMode, this.pageController);
 }

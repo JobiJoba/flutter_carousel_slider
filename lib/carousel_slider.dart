@@ -107,8 +107,13 @@ class CarouselSliderState extends State<CarouselSlider>
   @override
   void initState() {
     super.initState();
-    carouselState =
-        CarouselState(this.options, clearTimer, resumeTimer, this.changeMode);
+    pageController = PageController(
+      viewportFraction: options.viewportFraction,
+      initialPage: options.initialPage,
+    );
+
+    carouselState = CarouselState(this.options, clearTimer, resumeTimer,
+        this.changeMode, this.pageController);
 
     carouselState.itemCount = widget.itemCount;
     carouselController.state = carouselState;
@@ -118,12 +123,7 @@ class CarouselSliderState extends State<CarouselSlider>
         : carouselState.initialPage;
     handleAutoPlay();
 
-    pageController = PageController(
-      viewportFraction: options.viewportFraction,
-      initialPage: carouselState.realPage,
-    );
-
-    carouselState.pageController = pageController;
+    // carouselState.pageController = pageController;
   }
 
   Timer? getTimer() {
@@ -153,7 +153,8 @@ class CarouselSliderState extends State<CarouselSlider>
               nextPage = 0;
             }
 
-            carouselState.pageController.animateToPage(nextPage,
+            carouselState.pageController
+                .animateToPage(nextPage,
                     duration: widget.options.autoPlayAnimationDuration,
                     curve: widget.options.autoPlayCurve)
                 .then((_) => changeMode(previousReason));
@@ -343,8 +344,7 @@ class CarouselSliderState extends State<CarouselSlider>
               // pageController.page can only be accessed after the first build,
               // so in the first build we calculate the itemoffset manually
               var position = carouselState.pageController.position;
-              if (position.hasPixels &&
-                  position.hasContentDimensions) {
+              if (position.hasPixels && position.hasContentDimensions) {
                 var _page = carouselState.pageController.page;
                 if (_page != null) {
                   itemOffset = _page - idx;
